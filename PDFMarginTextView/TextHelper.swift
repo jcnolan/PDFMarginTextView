@@ -9,7 +9,7 @@ import Cocoa
 
 class TextHelper {
    
-    static func calculateCellHeight(for text: Any, with width: CGFloat, minHeight: CGFloat = 20.0) -> CGFloat {
+    static func calculateCellHeight(for text: Any, with width: CGFloat, minHeight: CGFloat = 20.0) -> CGFloat { 
         var height: CGFloat = minHeight
         if let textValue = TextHelper.convertToNSMutableAttributedString(text) {
             let tempTextCell = NSTextFieldCell()
