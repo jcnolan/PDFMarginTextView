@@ -21,6 +21,7 @@
 		894E720025F001D300BC76A5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E71FD25F001D300BC76A5 /* TextHelper.swift */; };
 		894E720525F0027F00BC76A5 /* PDFMarginTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */; };
 		894E720925F0031500BC76A5 /* PDFMarginTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720825F0031400BC76A5 /* PDFMarginTextView.swift */; };
+		89CAABE025F81AF300AEA404 /* PDFHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAABDF25F81AF300AEA404 /* PDFHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		894E71FD25F001D300BC76A5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 		894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextViewController.swift; sourceTree = "<group>"; };
 		894E720825F0031400BC76A5 /* PDFMarginTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextView.swift; sourceTree = "<group>"; };
+		89CAABDF25F81AF300AEA404 /* PDFHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +59,9 @@
 		89218F9625F80B93000EB7DA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				894E71FD25F001D300BC76A5 /* TextHelper.swift */,
 				89218F9725F80B93000EB7DA /* ResizePdf */,
+				89CAABDF25F81AF300AEA404 /* PDFHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -110,16 +114,15 @@
 		894E71E525F0018800BC76A5 /* PDFMarginTextView */ = {
 			isa = PBXGroup;
 			children = (
+				894E71EA25F0018900BC76A5 /* Assets.xcassets */,
+				894E71EF25F0018900BC76A5 /* Info.plist */,
+				894E71EC25F0018900BC76A5 /* Main.storyboard */,
+				894E71F025F0018900BC76A5 /* PDFMarginTextView.entitlements */,
 				894E71E625F0018800BC76A5 /* AppDelegate.swift */,
 				894E71FC25F001D300BC76A5 /* NotificationKeys.swift */,
 				894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */,
-				89218F9625F80B93000EB7DA /* Helpers */,
 				894E720825F0031400BC76A5 /* PDFMarginTextView.swift */,
-				894E71FD25F001D300BC76A5 /* TextHelper.swift */,
-				894E71F025F0018900BC76A5 /* PDFMarginTextView.entitlements */,
-				894E71EA25F0018900BC76A5 /* Assets.xcassets */,
-				894E71EC25F0018900BC76A5 /* Main.storyboard */,
-				894E71EF25F0018900BC76A5 /* Info.plist */,
+				89218F9625F80B93000EB7DA /* Helpers */,
 				894E71F825F001C300BC76A5 /* PdfSamples */,
 			);
 			path = PDFMarginTextView;
@@ -211,6 +214,7 @@
 				894E71E725F0018800BC76A5 /* AppDelegate.swift in Sources */,
 				89218FA125F80B93000EB7DA /* CGContext+GraphicsState.swift in Sources */,
 				89218FA225F80B93000EB7DA /* CommandLineHelpers.swift in Sources */,
+				89CAABE025F81AF300AEA404 /* PDFHelpers.swift in Sources */,
 				894E720525F0027F00BC76A5 /* PDFMarginTextViewController.swift in Sources */,
 				894E71FF25F001D300BC76A5 /* NotificationKeys.swift in Sources */,
 				89218FA325F80B93000EB7DA /* PDFResizeOperation.swift in Sources */,

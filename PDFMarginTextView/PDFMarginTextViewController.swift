@@ -106,8 +106,10 @@ class PDFMarginTextViewController: NSViewController {
     {
         var resizedPdf: PDFDocument? = nil
         
-        if let newPdf = ResizePDF.resize(sourcePdf: source, outsideLeft: marginToAdd) {
-            resizedPdf = newPdf
+        let cgPdf = PDFHelpers.pdfToCGPDF(source: source!)
+        
+        if let newPdf = ResizePDF.resize(sourcePdf: cgPdf, outsideLeft: marginToAdd) {
+            resizedPdf = PDFHelpers.cgpdfToPdf(source:newPdf)
         }
         
         return resizedPdf

@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import PDFKit
+//import PDFKit
 
 class ResizePDF: NSObject {
     
@@ -60,10 +60,12 @@ class ResizePDF: NSObject {
         return (inputURL, outputFileURL, CGSize(width: width, height: height))
     }
 
-    static func resize(sourcePdf: PDFDocument? = nil, outsideLeft:CGFloat=0, insideLeft:CGFloat=0, top:CGFloat=0, bottom:CGFloat=0)->PDFDocument?
+    static func resize(sourcePdf: CGPDFDocument? = nil, outsideLeft:CGFloat=0, insideLeft:CGFloat=0, top:CGFloat=0, bottom:CGFloat=0)->CGPDFDocument?
+//    static func resize(sourcePdf: PDFDocument? = nil, outsideLeft:CGFloat=0, insideLeft:CGFloat=0, top:CGFloat=0, bottom:CGFloat=0)->PDFDocument?
     {
-        var destPdf:PDFDocument? = nil
-        
+//        var destPdf:PDFDocument? = nil
+        var destPdf:CGPDFDocument? = nil
+
         let homePath = FileManager.default.homeDirectoryForCurrentUser
         let desktopPath = homePath.appendingPathComponent("Desktop")
       //  print(desktopPath)
@@ -83,6 +85,7 @@ class ResizePDF: NSObject {
         
         // Create and start a resize operation with those arguments
         // let operation = PDFResizeOperation(inputURL: inputURL, outputURL: outputURL, outputSize: outputSize)
+        
         let operation = PDFResizeOperation(sourcePdf: sourcePdf,  inputURL: inputURL, outputURL: outputURL,
                                            outputSize: outputSize, outputMargin: outputMargin)
         operation.start()
@@ -99,13 +102,15 @@ class ResizePDF: NSObject {
             }
         } else {
             
-            if let document = PDFDocument(url: outputFileUrl) {
+            /*
+            if let document = CGPDFDocument(url: outputFileUrl) {
                 
                 destPdf = document
                 
                 // Otherwise print success
                 print("Successfully combined PDFs and saved output to \(outputURL.path.abbreviatingWithTildeInPath).")
             }
+            */
             
         }
         return destPdf

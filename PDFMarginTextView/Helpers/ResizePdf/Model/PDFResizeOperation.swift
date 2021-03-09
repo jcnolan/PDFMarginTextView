@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import PDFKit
+//import PDFKit
 
 enum PDFResizeError : Error {
     /// Indicates that the input PDF located at the associated `URL` could not be opened.
@@ -24,8 +24,9 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
     var scalePageToFit = false
 
     /// Source PDF Data (if not referenced by URL)
-    let sourcePdf: PDFDocument?
-    
+//    let sourcePdf: PDFDocument?
+    let sourcePdf: CGPDFDocument?
+
     /// The URL for the PDF to resize.
     let inputURL: URL
 
@@ -48,14 +49,14 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
     ///   - inputURL: The URL of PDF to resize.
     ///   - outputURL: The URL at which to output the resized PDF.
     ///   - outputSize: The new size for the input PDF.
-    init(sourcePdf: PDFDocument? = nil, inputURL: URL? = nil, outputURL: URL, outputSize: CGSize, outputMargin: CGSize? = nil) {
+    init(sourcePdf: CGPDFDocument? = nil, inputURL: URL? = nil, outputURL: URL, outputSize: CGSize, outputMargin: CGSize? = nil) {
         self.sourcePdf = sourcePdf
         self.inputURL = (inputURL != nil ? inputURL : URL(string: "https://www.apple.com"))!
         self.outputURL = outputURL
         self.outputSize = outputSize
         self.outputMargin = outputMargin
     }
-    
+    /*
     private func getCGPDFDocument(_ source:PDFDocument)->CGPDFDocument? {
         
         let homePath = FileManager.default.homeDirectoryForCurrentUser
@@ -66,7 +67,7 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         let retVal = CGPDFDocument(tempFileUrl as CFURL)
         return retVal
     }
-    
+    */
     override func start() {
         
         // If we’re finished or canceled, return immediately
@@ -80,23 +81,32 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         defer { isFinished = true }
         
         // If we couldn’t open the input PDF, set our error, finish, and exit
-        //  guard let inputPDFDocument = CGPDFDocument(inputURL as CFURL) else {
-        //      error = .couldNotOpenFileURL(inputURL)
-        //      return
-        //  }
-        guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
-            ? CGPDFDocument(inputURL as CFURL)
-            : getCGPDFDocument(sourcePdf!)
-        else {
+        guard let inputPDFDocument = CGPDFDocument(inputURL as CFURL) else {
             error = .couldNotOpenFileURL(inputURL)
             return
         }
+
+        //        guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
+//            ? CGPDFDocument(inputURL as CFURL)
+//            : PDFHelpers.pdfToCGPDF(source: <#T##PDFDocument#>)
+//            : getCGPDFDocument(sourcePdf!)
+//        else {
+//            error = .couldNotOpenFileURL(inputURL)
+//            return
+//        }
         
         // If we couldn’t create the output PDF context, set our error, finish, and exit
+//        guard let outputPDFContext = CGContext(outputURL as CFURL, mediaBox: nil, nil) else {
+//            error = .couldNotCreateOutputPDF(outputURL)
+//            return
+//        }
+        
+        var pdfData:Data = Data()
+        var dataConsumer:CGDataConsumer = CGDataConsumer(data: pdfData as! CFMutableData)!
         guard let outputPDFContext = CGContext(outputURL as CFURL, mediaBox: nil, nil) else {
-            error = .couldNotCreateOutputPDF(outputURL)
-            return
-        }
+                   error = .couldNotCreateOutputPDF(outputURL)
+                   return
+               }
 
         var isRightPage: Bool = true
         let pageCount = inputPDFDocument.numberOfPages
