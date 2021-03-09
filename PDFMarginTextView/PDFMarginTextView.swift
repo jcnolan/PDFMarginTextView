@@ -19,6 +19,7 @@ class PDFMarginTextView: PDFView {
     
     var comments: [Comment] = []
     let highlighterColor:NSColor = NSColor(red:0.95, green:0.61, blue:0.73, alpha:0.25) // Highlighter Pink
+    var margin: CGSize? = nil
     
     override func draw(_ page: PDFPage, to context: CGContext) {
         
@@ -53,6 +54,8 @@ class PDFMarginTextView: PDFView {
                                       NSAttributedString.Key.backgroundColor: NSColor.clear,
                                       NSAttributedString.Key.paragraphStyle: paragraphStyle,
                                       NSAttributedString.Key.font: NSFont(name: commentFont, size: fontSize) ]
+        
+        let isOddPage:Bool = (((page.pageRef?.pageNumber ?? 0) % 2) != 0) 
         
         // Loop through comments drawing highlight / margin text for each
         
@@ -95,13 +98,13 @@ class PDFMarginTextView: PDFView {
                 commentStr.addAttributes(margintTextAttributes as [NSAttributedString.Key : Any],
                                          range: NSRange(location: 0, length: commentStr.length))
                 
-                let myLeftTextEdge:  CGFloat = 80.0 // Hard-coded for demo, xpos on page where text starts (ie, left margin)
+                let myLeftTextEdge:  CGFloat = 80.0 + (margin != nil ? margin!.width * 72.0 : 0.0) // Hard-coded for demo, xpos on page where text starts (ie, left margin)
                 let selectionHeight: CGFloat = CGFloat(maxY - minY)
                 let highlightBox = selection.bounds(for: page)
                 
                 let commentBoxWidth: CGFloat = myLeftTextEdge - (marginWidth * 2)
                 let pageBox: CGRect = page.bounds(for: displayBox)
-                let xPos = Int(pageBox.origin.x + marginWidth)
+                let xPos = isOddPage ? Int(pageBox.width - (marginWidth + commentBoxWidth)) : Int(pageBox.origin.x + marginWidth)
                 
                 let commentBoxHeight = TextHelper.calculateCellHeight(for: commentStr, with: commentBoxWidth, minHeight: selectionHeight)
                 let commentBoxYPos   = highlightBox.origin.y + highlightBox.height - commentBoxHeight

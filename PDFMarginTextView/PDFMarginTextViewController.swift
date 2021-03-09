@@ -19,17 +19,23 @@ class PDFMarginTextViewController: NSViewController {
     var currentSelectionText: String? = nil
     var currentSelection: PDFSelection? = nil
     
+    let marginToAdd: CGFloat = 1.5
+    
     // MARK: PDF Navigation Handlers
     
     @IBAction func prevPageButtonClicked(_ sender: Any) {
         
         if let currPageNum = pdfView.currentPage?.pageRef?.pageNumber {
             
-            let currPageNum = currPageNum - 1
+            let numPagesDisplayed = ((pdfView.displayMode == .twoUp || pdfView.displayMode == .twoUpContinuous) ? 2 : 1)
+            
+        //    let currPageNum = currPageNum - numPagesDisplayed
             var newPageNum:Int
             
-            if currPageNum > 0 {
-                newPageNum = currPageNum - 1
+            if currPageNum > 2 {
+                newPageNum = currPageNum - numPagesDisplayed
+            } else if currPageNum > 1 {
+                newPageNum = 1
             } else {
                 newPageNum = pdfView.document!.pageCount
             }
@@ -41,13 +47,16 @@ class PDFMarginTextViewController: NSViewController {
     @IBAction func nextPageButtonClicked(_ sender: Any) {
         
         if let currPageNum = pdfView.currentPage?.pageRef?.pageNumber {
+
+            let numPagesDisplayed = ((pdfView.displayMode == .twoUp || pdfView.displayMode == .twoUpContinuous) ? 2 : 1)
             
             let currPageNum = currPageNum
             var newPageNum: Int
             
             if currPageNum < pdfView.document!.pageCount {
                 
-                newPageNum = currPageNum + 1
+                newPageNum = currPageNum + numPagesDisplayed
+//                newPageNum = currPageNum + (Set(pdfView.displayMode).isSubSet(of: [.twoUp, .twoUpContinuous]) ? 1 : 2)
                 
             } else { newPageNum = 1 }
             
@@ -93,6 +102,17 @@ class PDFMarginTextViewController: NSViewController {
         NSApplication.shared.terminate(self)
     }
     
+    func addMarginToPdf(source:PDFDocument? = nil)->PDFDocument?
+    {
+        var resizedPdf: PDFDocument? = nil
+        
+        if let newPdf = ResizePDF.resize(sourcePdf: source, outsideLeft: marginToAdd) {
+            resizedPdf = newPdf
+        }
+        
+        return resizedPdf
+    }
+    
     // MARK: Controller Methods
     
     override func viewDidLoad() {
@@ -104,9 +124,17 @@ class PDFMarginTextViewController: NSViewController {
         addObservers()
         
         guard let path = Bundle.main.url(forResource: "HerMouseReadACatAndADuck", withExtension: "pdf") else { return }
+//        guard let path = Bundle.main.url(forResource: "welcome_to_the_universe", withExtension: "pdf") else { return }
 
         if let document = PDFDocument(url: path) {
-            pdfView.document = document
+
+            let resizedDocument = addMarginToPdf(source: document)
+            pdfView.document = resizedDocument
+            pdfView.margin = CGSize(width: marginToAdd, height: 0.0)
+            pdfView.displaysAsBook = true
+            pdfView.displayMode = .twoUp
+           // pdfView.displayMode = .twoUpContinuous
+            
             updatePageNumDisplay()
         }
     }

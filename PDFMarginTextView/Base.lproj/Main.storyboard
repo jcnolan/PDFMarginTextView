@@ -922,7 +922,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="commentButton" destination="Oro-iv-Lws" id="Jws-Vi-ydc"/>
                         <outlet property="commentText" destination="3n8-yt-Utf" id="2Og-Bo-3W3"/>
                         <outlet property="pageNumLabel" destination="qMG-Ct-pOO" id="baw-dy-kLg"/>
                         <outlet property="pdfView" destination="uky-yS-naO" id="y4d-Mq-Vqj"/>
