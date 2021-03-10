@@ -3,6 +3,7 @@
 //  resizepdf
 //
 //  Created by Prachi Gauriar on 10/17/2017.
+//  https://github.com/prachigauriar/ResizePDF - Resize PDF
 //  Copyright © 2017 Grubhub, Inc. All rights reserved.
 //
 
