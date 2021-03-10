@@ -21,6 +21,7 @@
 		894E720025F001D300BC76A5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E71FD25F001D300BC76A5 /* TextHelper.swift */; };
 		894E720525F0027F00BC76A5 /* PDFMarginTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */; };
 		894E720925F0031500BC76A5 /* PDFMarginTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720825F0031400BC76A5 /* PDFMarginTextView.swift */; };
+		89CAABF425F94A5500AEA404 /* PDFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAABF325F94A5500AEA404 /* PDFHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		894E71FD25F001D300BC76A5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 		894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextViewController.swift; sourceTree = "<group>"; };
 		894E720825F0031400BC76A5 /* PDFMarginTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextView.swift; sourceTree = "<group>"; };
+		89CAABF325F94A5500AEA404 /* PDFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				89218F9725F80B93000EB7DA /* ResizePdf */,
+				89CAABF325F94A5500AEA404 /* PDFHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89CAABF425F94A5500AEA404 /* PDFHelper.swift in Sources */,
 				89218FA525F80B93000EB7DA /* ResizePDF.swift in Sources */,
 				894E720025F001D300BC76A5 /* TextHelper.swift in Sources */,
 				89218FA025F80B93000EB7DA /* String+TildeExpansion.swift in Sources */,

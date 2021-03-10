@@ -57,19 +57,6 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         self.outputMargin = outputMargin
     }
     
-    private func getCGPDFDocument(_ source:PDFDocument)->CGPDFDocument? {
-        
-        // Converts by writing to a buffer and re-reading, ugh!
-        
-        let homePath = FileManager.default.homeDirectoryForCurrentUser
-        let desktopPath = homePath.appendingPathComponent("Desktop")
-        let tempFileUrl = desktopPath.appendingPathComponent("bufferPdf.pdf")
-        
-        source.write(to: tempFileUrl)
-        let retVal = CGPDFDocument(tempFileUrl as CFURL)
-        return retVal
-    }
-    
     override func start() {
         
         // If we’re finished or canceled, return immediately
@@ -89,7 +76,7 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         //  }
         guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
             ? CGPDFDocument(inputURL as CFURL)
-            : getCGPDFDocument(sourcePdf!)
+            : PDFHelpers.getCGPDFDocument(sourcePdf!)
         else {
             error = .couldNotOpenFileURL(inputURL)
             return
