@@ -76,7 +76,8 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         //  }
         guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
             ? CGPDFDocument(inputURL as CFURL)
-            : PDFHelpers.getCGPDFDocument(sourcePdf!)
+//            : PDFHelpers.getCGPDFDocumentFromPDFViaRW(sourcePdf!)
+            : PDFHelpers.getCGPDFDocumentFromPDFViaMemory(sourcePdf!)
         else {
             error = .couldNotOpenFileURL(inputURL)
             return
