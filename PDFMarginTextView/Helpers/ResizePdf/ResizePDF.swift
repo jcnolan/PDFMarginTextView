@@ -69,7 +69,7 @@ class ResizePDF: NSObject {
       //  print(desktopPath)
         
         // if no source document was provided, read the hard-coded test document
-        var sourceFileUrl = (sourcePdf == nil) ?  Bundle.main.url(forResource: "HerMouseReadACatAndADuck", withExtension: "pdf") : nil
+        let sourceFileUrl = (sourcePdf == nil) ?  Bundle.main.url(forResource: "HerMouseReadACatAndADuck", withExtension: "pdf") : nil
         guard sourcePdf != nil || sourceFileUrl != nil else { return nil }
         
         let outputFileUrl = desktopPath.appendingPathComponent("icon-gh-500-500.pdf")

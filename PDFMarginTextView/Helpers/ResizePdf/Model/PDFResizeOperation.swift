@@ -58,6 +58,8 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
     
     private func getCGPDFDocument(_ source:PDFDocument)->CGPDFDocument? {
         
+        // Converts by writing to a buffer and re-reading, ugh!
+        
         let homePath = FileManager.default.homeDirectoryForCurrentUser
         let desktopPath = homePath.appendingPathComponent("Desktop")
         let tempFileUrl = desktopPath.appendingPathComponent("bufferPdf.pdf")
