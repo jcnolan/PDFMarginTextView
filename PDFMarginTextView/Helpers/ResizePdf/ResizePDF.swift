@@ -99,6 +99,10 @@ class ResizePDF: NSObject {
             }
         } else {
             
+            destPdf = operation.destinationPdf
+            
+            /*
+            
             if let document = PDFDocument(url: outputFileUrl) {
                 
                 destPdf = document
@@ -106,6 +110,7 @@ class ResizePDF: NSObject {
                 // Otherwise print success
                 print("Successfully combined PDFs and saved output to \(outputURL.path.abbreviatingWithTildeInPath).")
             }
+ */
             
         }
         return destPdf

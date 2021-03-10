@@ -7,6 +7,10 @@
 //  Copyright © 2017 Grubhub, Inc. All rights reserved.
 //
 
+// Other interesting links?
+// https://github.com/amosavian/PDFDocument-Swift/blob/master/PDFDocument.swift
+//
+
 import Foundation
 import PDFKit
 
@@ -23,25 +27,31 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
     
     /// Set to true to scale page to new page size if possible
     var scalePageToFit = false
-
+    
     /// Source PDF Data (if not referenced by URL)
     let sourcePdf: PDFDocument?
     
+    /// Source PDF Data (if not referenced by URL)
+    var destinationPdf: PDFDocument?
+    
     /// The URL for the PDF to resize.
     let inputURL: URL
-
+    
     /// The URL at which to output the resized PDF.
     let outputURL: URL
-
+    
     /// The new size for the input PDF.
     let outputSize: CGSize
-
+    
     /// The new size for the input PDF.
     let outputMargin: CGSize?
     
+    /// Work in memory or off disk
+    
+    let useDisk:Bool = false
+    
     /// An error (if any) that may have occurred while resizing the PDF.
     private(set) var error: PDFResizeError?
-    
     
     /// Creates a new `PDFResizeOperation`.
     ///
@@ -49,8 +59,10 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
     ///   - inputURL: The URL of PDF to resize.
     ///   - outputURL: The URL at which to output the resized PDF.
     ///   - outputSize: The new size for the input PDF.
+    
     init(sourcePdf: PDFDocument? = nil, inputURL: URL? = nil, outputURL: URL, outputSize: CGSize, outputMargin: CGSize? = nil) {
         self.sourcePdf = sourcePdf
+        self.destinationPdf = nil
         self.inputURL = (inputURL != nil ? inputURL : URL(string: "https://www.apple.com"))!
         self.outputURL = outputURL
         self.outputSize = outputSize
@@ -75,16 +87,21 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         //      return
         //  }
         guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
-            ? CGPDFDocument(inputURL as CFURL)
-//            : PDFHelpers.getCGPDFDocumentFromPDFViaRW(sourcePdf!)
-            : PDFHelpers.getCGPDFDocumentFromPDFViaMemory(sourcePdf!)
+                ? CGPDFDocument(inputURL as CFURL)
+                //            : PDFHelpers.getCGPDFDocumentFromPDFViaRW(sourcePdf!)
+                : PDFHelpers.getCGPDFDocumentFromPDFViaMemory(sourcePdf!)
         else {
             error = .couldNotOpenFileURL(inputURL)
             return
         }
         
         // If we couldn’t create the output PDF context, set our error, finish, and exit
-        guard let outputPDFContext = CGContext(outputURL as CFURL, mediaBox: nil, nil) else {
+        let d = NSMutableData()
+        let c:CGDataConsumer = CGDataConsumer(data:d)!
+        guard let outputPDFContext:CGContext = ((useDisk == true)
+                                                    ? CGContext(outputURL as CFURL, mediaBox: nil, nil)
+                                                    : CGContext(consumer: c, mediaBox: nil, nil))
+        else {
             error = .couldNotCreateOutputPDF(outputURL)
             return
         }
@@ -104,14 +121,14 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
             outputPDFContext.withGraphicsState {
                 mediaBox.size = outputSize
                 outputPDFContext.beginPage(mediaBox: &mediaBox)
-
+                
                 // Create a transform that scales X and Y appropriately
                 let cropBox = page.getBoxRect(.cropBox)
                 
                 let (xScale, yScale) = (scalePageToFit)
                     ? (outputSize.width / cropBox.size.width, outputSize.height / cropBox.size.height)
                     : (1.0, 1.0)
-
+                
                 outputPDFContext.scaleBy(x: xScale, y: yScale)
                 
                 // Center old page on new page if no specific offset was declared
@@ -129,11 +146,31 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
             isRightPage = !isRightPage
             progress.completedUnitCount += 1
         }
-        
+
         outputPDFContext.closePDF()
         
+        if useDisk {
+            
+            if let document = PDFDocument(url: self.outputURL) {
+                
+                destinationPdf = document
+                
+                // Otherwise print success
+                print("Successfully combined PDFs and saved output to \(outputURL.path.abbreviatingWithTildeInPath).")
+            }
+            
+        } else {
+            
+            if let myNewPdfData:PDFDocument = PDFDocument(data: d as Data) {
+                // patch, write file to desktop for validation
+      //          let fileName:String = outputURL.absoluteString.replacingOccurrences(of: "file:", with: "")
+      //          myNewPdfData.write(toFile: fileName)
+                print("howdy")
+                self.destinationPdf = myNewPdfData
+            }
+        }
         // If we were canceled, try to remove the output PDF, but don’t worry about it if we can’t
-        if isCancelled {
+        if isCancelled && useDisk {
             do { try FileManager.default.removeItem(at: outputURL) }
             catch { }
         }
@@ -144,7 +181,6 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
 private struct PDFPageSequence : Sequence, IteratorProtocol {
     let document: CGPDFDocument
     private(set) var currentPage: Int = 1
-
     
     init(document: CGPDFDocument) {
         self.document = document
@@ -155,3 +191,4 @@ private struct PDFPageSequence : Sequence, IteratorProtocol {
         return document.page(at: currentPage)
     }
 }
+
