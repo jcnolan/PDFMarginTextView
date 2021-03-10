@@ -89,18 +89,18 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
         guard let inputPDFDocument: CGPDFDocument = (sourcePdf == nil)
                 ? CGPDFDocument(inputURL as CFURL)
                 //            : PDFHelpers.getCGPDFDocumentFromPDFViaRW(sourcePdf!)
-                : PDFHelpers.getCGPDFDocumentFromPDFViaMemory(sourcePdf!)
+                : PDFHelper.getCGPDFDocumentFromPDFViaMemory(sourcePdf!)
         else {
             error = .couldNotOpenFileURL(inputURL)
             return
         }
         
         // If we couldn’t create the output PDF context, set our error, finish, and exit
-        let d = NSMutableData()
-        let c:CGDataConsumer = CGDataConsumer(data:d)!
+        let cgPdfData = NSMutableData()
+        let cdPdfDataConsumer:CGDataConsumer = CGDataConsumer(data:cgPdfData)!
         guard let outputPDFContext:CGContext = ((useDisk == true)
                                                     ? CGContext(outputURL as CFURL, mediaBox: nil, nil)
-                                                    : CGContext(consumer: c, mediaBox: nil, nil))
+                                                    : CGContext(consumer: cdPdfDataConsumer, mediaBox: nil, nil))
         else {
             error = .couldNotCreateOutputPDF(outputURL)
             return
@@ -161,7 +161,7 @@ final class PDFResizeOperation : ConcurrentProgressReportingOperation {
             
         } else {
             
-            if let myNewPdfData:PDFDocument = PDFDocument(data: d as Data) {
+            if let myNewPdfData:PDFDocument = PDFDocument(data: cgPdfData as Data) {
                 // patch, write file to desktop for validation
       //          let fileName:String = outputURL.absoluteString.replacingOccurrences(of: "file:", with: "")
       //          myNewPdfData.write(toFile: fileName)

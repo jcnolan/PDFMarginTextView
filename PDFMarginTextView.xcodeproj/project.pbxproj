@@ -18,10 +18,11 @@
 		894E71EE25F0018900BC76A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 894E71EC25F0018900BC76A5 /* Main.storyboard */; };
 		894E71FA25F001C300BC76A5 /* HerMouseReadACatAndADuck.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 894E71F925F001C300BC76A5 /* HerMouseReadACatAndADuck.pdf */; };
 		894E71FF25F001D300BC76A5 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E71FC25F001D300BC76A5 /* NotificationKeys.swift */; };
-		894E720025F001D300BC76A5 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E71FD25F001D300BC76A5 /* TextHelper.swift */; };
+		894E720025F001D300BC76A5 /* TextCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E71FD25F001D300BC76A5 /* TextCellHelper.swift */; };
 		894E720525F0027F00BC76A5 /* PDFMarginTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */; };
 		894E720925F0031500BC76A5 /* PDFMarginTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E720825F0031400BC76A5 /* PDFMarginTextView.swift */; };
-		89CAABF425F94A5500AEA404 /* PDFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAABF325F94A5500AEA404 /* PDFHelper.swift */; };
+		89CAABF425F94A5500AEA404 /* PdfHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAABF325F94A5500AEA404 /* PdfHelper.swift */; };
+		89CAABF925F979AC00AEA404 /* CodeTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CAABF825F979AC00AEA404 /* CodeTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,10 +40,11 @@
 		894E71F025F0018900BC76A5 /* PDFMarginTextView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PDFMarginTextView.entitlements; sourceTree = "<group>"; };
 		894E71F925F001C300BC76A5 /* HerMouseReadACatAndADuck.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = HerMouseReadACatAndADuck.pdf; sourceTree = "<group>"; };
 		894E71FC25F001D300BC76A5 /* NotificationKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
-		894E71FD25F001D300BC76A5 /* TextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
+		894E71FD25F001D300BC76A5 /* TextCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCellHelper.swift; sourceTree = "<group>"; };
 		894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextViewController.swift; sourceTree = "<group>"; };
 		894E720825F0031400BC76A5 /* PDFMarginTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMarginTextView.swift; sourceTree = "<group>"; };
-		89CAABF325F94A5500AEA404 /* PDFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFHelper.swift; sourceTree = "<group>"; };
+		89CAABF325F94A5500AEA404 /* PdfHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfHelper.swift; sourceTree = "<group>"; };
+		89CAABF825F979AC00AEA404 /* CodeTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +61,10 @@
 		89218F9625F80B93000EB7DA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				89CAABF825F979AC00AEA404 /* CodeTimer.swift */,
+				89CAABF325F94A5500AEA404 /* PdfHelper.swift */,
+				894E71FD25F001D300BC76A5 /* TextCellHelper.swift */,
 				89218F9725F80B93000EB7DA /* ResizePdf */,
-				89CAABF325F94A5500AEA404 /* PDFHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -114,16 +118,15 @@
 			isa = PBXGroup;
 			children = (
 				894E71E625F0018800BC76A5 /* AppDelegate.swift */,
+				89218F9625F80B93000EB7DA /* Helpers */,
 				894E71FC25F001D300BC76A5 /* NotificationKeys.swift */,
 				894E720425F0027F00BC76A5 /* PDFMarginTextViewController.swift */,
-				89218F9625F80B93000EB7DA /* Helpers */,
 				894E720825F0031400BC76A5 /* PDFMarginTextView.swift */,
-				894E71FD25F001D300BC76A5 /* TextHelper.swift */,
-				894E71F025F0018900BC76A5 /* PDFMarginTextView.entitlements */,
-				894E71EA25F0018900BC76A5 /* Assets.xcassets */,
-				894E71EC25F0018900BC76A5 /* Main.storyboard */,
-				894E71EF25F0018900BC76A5 /* Info.plist */,
 				894E71F825F001C300BC76A5 /* PdfSamples */,
+				894E71EA25F0018900BC76A5 /* Assets.xcassets */,
+				894E71EF25F0018900BC76A5 /* Info.plist */,
+				894E71EC25F0018900BC76A5 /* Main.storyboard */,
+				894E71F025F0018900BC76A5 /* PDFMarginTextView.entitlements */,
 			);
 			path = PDFMarginTextView;
 			sourceTree = "<group>";
@@ -206,13 +209,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89CAABF425F94A5500AEA404 /* PDFHelper.swift in Sources */,
+				89CAABF425F94A5500AEA404 /* PdfHelper.swift in Sources */,
 				89218FA525F80B93000EB7DA /* ResizePDF.swift in Sources */,
-				894E720025F001D300BC76A5 /* TextHelper.swift in Sources */,
+				894E720025F001D300BC76A5 /* TextCellHelper.swift in Sources */,
 				89218FA025F80B93000EB7DA /* String+TildeExpansion.swift in Sources */,
 				89218FA425F80B93000EB7DA /* ConcurrentProgressReportingOperation.swift in Sources */,
 				894E720925F0031500BC76A5 /* PDFMarginTextView.swift in Sources */,
 				894E71E725F0018800BC76A5 /* AppDelegate.swift in Sources */,
+				89CAABF925F979AC00AEA404 /* CodeTimer.swift in Sources */,
 				89218FA125F80B93000EB7DA /* CGContext+GraphicsState.swift in Sources */,
 				89218FA225F80B93000EB7DA /* CommandLineHelpers.swift in Sources */,
 				894E720525F0027F00BC76A5 /* PDFMarginTextViewController.swift in Sources */,

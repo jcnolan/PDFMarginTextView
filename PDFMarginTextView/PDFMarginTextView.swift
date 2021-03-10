@@ -106,7 +106,7 @@ class PDFMarginTextView: PDFView {
                 let pageBox: CGRect = page.bounds(for: displayBox)
                 let xPos = isOddPage ? Int(pageBox.width - (marginWidth + commentBoxWidth)) : Int(pageBox.origin.x + marginWidth)
                 
-                let commentBoxHeight = TextHelper.calculateCellHeight(for: commentStr, with: commentBoxWidth, minHeight: selectionHeight)
+                let commentBoxHeight = TextCellHelper.calculateCellHeight(for: commentStr, with: commentBoxWidth, minHeight: selectionHeight)
                 let commentBoxYPos   = highlightBox.origin.y + highlightBox.height - commentBoxHeight
                 
                 let commentMarginBox: CGRect = CGRect(x: CGFloat(xPos), y: commentBoxYPos,

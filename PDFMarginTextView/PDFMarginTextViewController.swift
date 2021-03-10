@@ -123,9 +123,14 @@ class PDFMarginTextViewController: NSViewController {
         
         addObservers()
         
+        // Read source file from bundled samples
         guard let path = Bundle.main.url(forResource: "HerMouseReadACatAndADuck", withExtension: "pdf") else { return }
-//        guard let path = Bundle.main.url(forResource: "welcome_to_the_universe", withExtension: "pdf") else { return }
-
+        
+        // Read source file from desktop
+//        let homePath = FileManager.default.homeDirectoryForCurrentUser
+//        let desktopPath = homePath.appendingPathComponent("Desktop")
+//        let path = desktopPath.appendingPathComponent("welcome_to_the_universe.pdf")
+        
         if let document = PDFDocument(url: path) {
 
             let resizedDocument = addMarginToPdf(source: document)

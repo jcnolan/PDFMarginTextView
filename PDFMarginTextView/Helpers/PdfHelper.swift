@@ -8,7 +8,7 @@
 import Foundation
 import PDFKit
 
-open class PDFHelpers {
+open class PDFHelper {
     
     class open func getCGPDFDocumentFromPDFViaRW(_ source:PDFDocument)->CGPDFDocument? {
         
@@ -37,6 +37,7 @@ open class PDFHelpers {
         return retVal
     }
     
+    /*
     class open func cgpdfToPdf(source:CGPDFDocument)->PDFDocument? {
         
         var retVal: PDFDocument? = nil
@@ -47,4 +48,5 @@ open class PDFHelpers {
         
         return retVal
     }
+ */
 }

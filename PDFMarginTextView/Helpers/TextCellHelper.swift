@@ -7,11 +7,11 @@
 
 import Cocoa
 
-class TextHelper {
+class TextCellHelper {
    
     static func calculateCellHeight(for text: Any, with width: CGFloat, minHeight: CGFloat = 20.0) -> CGFloat { 
         var height: CGFloat = minHeight
-        if let textValue = TextHelper.convertToNSMutableAttributedString(text) {
+        if let textValue = TextCellHelper.convertToNSMutableAttributedString(text) {
             let tempTextCell = NSTextFieldCell()
             tempTextCell.wraps = true
             tempTextCell.attributedStringValue = textValue
@@ -23,7 +23,7 @@ class TextHelper {
     
     static func calculateCellWidth(for text: Any, with height: CGFloat, minWidth: CGFloat = 50.0) -> CGFloat {
         var width: CGFloat = minWidth
-        if let textValue = TextHelper.convertToNSMutableAttributedString(text) {
+        if let textValue = TextCellHelper.convertToNSMutableAttributedString(text) {
             let tempTextCell = NSTextFieldCell()
             tempTextCell.attributedStringValue = textValue
             let textWidth: CGFloat = tempTextCell.cellSize(forBounds: NSMakeRect(0, 0, CGFloat.greatestFiniteMagnitude, height)).width

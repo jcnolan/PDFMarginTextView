@@ -79,14 +79,19 @@ class ResizePDF: NSObject {
             outputFileUrl,
             CGSize(width: (8.5+(outsideLeft+insideLeft))*72.0, height: (11.0+0.0)*72.0),
             CGSize(width: outsideLeft*72.0, height: bottom*72.0)
-            )
+        )
         
         // Create and start a resize operation with those arguments
         // let operation = PDFResizeOperation(inputURL: inputURL, outputURL: outputURL, outputSize: outputSize)
         let operation = PDFResizeOperation(sourcePdf: sourcePdf,  inputURL: inputURL, outputURL: outputURL,
                                            outputSize: outputSize, outputMargin: outputMargin)
-        operation.start()
-
+        
+        let _ = KosTimer.timer(name: "Resizing document", timedCode: {
+            
+            operation.start()
+            
+        })
+        
         // If an error occurred, print an appropriate error message
         if let error = operation.error {
             switch error {
